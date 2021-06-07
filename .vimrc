@@ -11,7 +11,7 @@
 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!ATENÇÃO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 "!								!
 "! Sempre que salvar este arquivo, digite: ' :source ~/.vimrc ' !
-"! ou reinicie o vim.						!
+"! ou ' :source $MYVIMRC ' ou reinicie o vim.					!
 "!								!
 "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 "
@@ -76,6 +76,8 @@ syntax on "Ativa o highlight de sintaxes
 colorscheme gruvbox "Atual tema de cor: Gruvbox
 set background=dark "Versao dark do tema
 
+" Tecla leader agora é: ,
+let mapleader=','
 "Os dois comandos abaixo remapeiam o segundo caractere para o primeiro
 nnoremap B 0 
 nnoremap E $
@@ -86,9 +88,12 @@ nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
 nnoremap <C-h> <C-W>h
-nnoremap <Leader>r <C-W>r
+"Troca o buffer atual e próximo de lugar
+nnoremap <Leader>r <C-W>x
 tnoremap <C-N> <C-W>N
-
+" Search for word under cursor but not moving cursor 
+nmap <silent> <space> *N
+nmap s <space>cgn
 "Permite com que a clipboard do SO seja usada para copiar e colar
 "Para copiar para ela digite ` "+y `
 "Para colar dela digite ` "+p `
@@ -96,3 +101,46 @@ set clipboard=unnamedplus
 
 set shiftwidth=4		" always set indent size as 4 whitespaces
 set tabstop=4
+ 
+" No undo .un~ files
+set noundofile
+ 
+" -------------------AIRLINE-----------------------------
+"   
+" Set the airline theme
+let g:airline_theme='wombat'
+"
+" -------------------NERDTree-----------------------------
+"
+" Start NERDTree and leave the cursor in it.
+autocmd VimEnter * NERDTree
+" Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+	\ quit | endif
+"  
+" -------------------Coc-nvim-----------------------------
+"
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" go to previous buffer, deleting actual buffer  
+nmap <silent> gb :bp\|bd #<CR>
+" go to previous (ultimo) buffer
+nmap <silent> gu :bp<CR>
+" go to next (prox) buffer
+nmap <silent> gp :bn<CR>
+" switch between header and source files
+" (WILL OVERRIDE VIM'S SELECT MODE)
+nmap <silent> gh :CocCommand clangd.switchSourceHeader<CR>
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+" -------------------Coc-highlights-----------------------------
+"
+" Enable highlighting on cursor hold;
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" -------------------Tabularize-----------------------------
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
