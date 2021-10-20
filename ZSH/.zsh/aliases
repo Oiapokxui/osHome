@@ -1,0 +1,27 @@
+alias idea=idea.sh
+alias pycharm=pycharm.sh
+
+alias findps="ps -aux | grep"
+
+# exa is the new ls 
+alias ls="exa"
+alias l="ls -h -l"
+alias cl="clear; l"
+
+# using builtin time instead of zsh's
+alias time='\time -p'
+ 
+# Change dir, clear screen and list files
+c() {
+	cd $1 ; cl
+}
+ 
+# Change dir and list files
+cdl() {
+	cd $1 ; l
+}
+ 
+# jump to dir, clear screen and list files
+jl() {
+	j $1 ; cl
+}

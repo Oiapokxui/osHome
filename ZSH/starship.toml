@@ -1,0 +1,89 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+# Replace the "❯" symbol in the prompt with "➜"
+# [character]                            # The name of the module we are configuring is "character"
+# success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+
+# Disable the package module, hiding it from the prompt completely
+
+format = """
+┌──{$username🗿$hostname}-$directory\
+$git_branch\
+$git_status\
+$cmd_duration
+│
+└─$character """
+
+[package]
+disabled = true
+
+[character]
+#style = "#035ee8"
+success_symbol = "[❯](#98971a)"
+error_symbol = "[❌](red)"
+
+[cmd_duration]
+format = " [Δ]($style)$duration"
+style = "#458588"
+
+[[battery.display]]
+threshold = 10
+style = "bold red"
+
+[[battery.display]]
+threshold = 20
+style = "bold yellow"
+
+[cmake]
+format = "via [$symbol $version]($style) "
+symbol = "cmake"
+
+[directory]
+style = "#458588"
+format = "\\[[$path]($style)\\][$read_only](red)"
+read_only = "🔒"
+
+#[erlang]
+#symbol = "erlang "
+
+[git_branch]
+style = "#458588"
+symbol = ""
+format = "-\\[$symbol[$branch]($style)\\]"
+
+[git_status]
+style = "#458588"
+format = "[$all_status$ahead_behind]($style)"
+
+[hostname]
+ssh_only = false
+style = "#d79921"
+format = "[$hostname]($style)"
+
+#[java]
+#symbol = "java "
+
+#[lua]
+#symbol = "lua "
+
+#[perl]
+#symbol = "perl "
+
+#[php]
+#symbol = "php "
+
+#[python]
+#symbol = "python "
+
+#[ruby]
+#symbol = "ruby "
+
+#[rust]
+#symbol = "rust "
+
+[username]
+show_always = true
+style_user = "#98971a"
+style_root = "#98971a"
+format = "[$user]($style)"
