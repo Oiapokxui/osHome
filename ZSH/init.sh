@@ -10,6 +10,6 @@ cp .zshrc $HOME
 cp aliases $ZSH_HOME
 cp starship.toml $CONFIG_HOME
 
-git clone https://github.com/wting/autojump.git $zsh_home/autojump
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $zsh_home/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $zsh_home/zsh-syntax-highlighting
+git clone https://github.com/wting/autojump.git $ZSH_HOME/autojump
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_HOME/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_HOME/zsh-syntax-highlighting
