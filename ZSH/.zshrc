@@ -100,7 +100,7 @@ export EDITOR=/usr/bin/vim
  ## zsh-syntax-highlighting
  [[ -s $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
- [[ -s /usr/share/autojump/autojump.sh ]] && source /usr/share/autojump/autojump.sh 
+ [[ -s $HOME/.zsh/autojump/bin/autojump.zsh ]] && source $HOME/.zsh/autojump/bin/autojump.zsh 
 # }
 
 # autoload -U compinit colors zcalc
