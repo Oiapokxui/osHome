@@ -10,19 +10,11 @@ setopt appendhistory                                            # Immediately ap
 setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
 setopt autocd                                                   # if only directory path is entered, cd there.
 
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
-zstyle ':completion:*' rehash true                              # automatically find new executables in path 
-# Speed up completions
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
 HISTFILE=~/.zhistory
 HISTSIZE=1000
 SAVEHIST=500
 #export VISUAL=/usr/bin/nano
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
-
 
 ## Keybindings section
 bindkey -e
@@ -77,7 +69,7 @@ bindkey '^[[B' history-substring-search-down
 ##### MY CONFIG #####
 
 # Exports {
-export PATH=$PATH:$HOME/.bin/:$HOME/.local/bin:$HOME/Downloads/IDEA/bin:$HOME/Downloads/Pycharm/bin
+export PATH=$PATH:$HOME/.bin/:$HOME/.local/bin:$HOME/Downloads/IDEA/bin:$HOME/Downloads/Pycharm/bin:$HOME/.local/share/coursier/bin:$HOME/Documents/Scripts:$HOME/.cargo/bin
 export EDITOR=/usr/bin/vim
 # }
 
@@ -90,15 +82,30 @@ export EDITOR=/usr/bin/vim
 # }
 
 # Plugins {
-  [[ -s /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh 2>/dev/null
-  [[ -s /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-  [[ -s /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
-  [[ -s /usr/share/autojump/autojump.sh ]] && source /usr/share/autojump/autojump.sh 
+#
+ ## zsh-history-substring-search
+ [[ -s $HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh 2>/dev/null
+
+ ## zsh-autosuggestions
+
+ [[ -s $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh  2> /dev/null
+ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
+ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
+ zstyle ':completion:*' rehash true                              # automatically find new executables in path 
+ # Speed up completions
+ zstyle ':completion:*' accept-exact '*(N)'
+ zstyle ':completion:*' use-cache on
+ zstyle ':completion:*' cache-path ~/.zsh/cache
+
+ ## zsh-syntax-highlighting
+ [[ -s $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+
+ [[ -s /usr/share/autojump/autojump.sh ]] && source /usr/share/autojump/autojump.sh 
 # }
 
-autoload -U compinit colors zcalc
-compinit -u
-colors
+# autoload -U compinit colors zcalc
+# compinit -u
+# colors
 
 #Uses tmux by default
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
@@ -109,3 +116,7 @@ eval "$(starship init zsh)" # Use Starship prompt
 
 # Set zsh time format
 TIMEFMT=$'\t%E real\n\t%U user\n\t%S sys'
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

@@ -1,3 +1,1 @@
-place .zsh and .zshrc in your home folder.  
-place starship.toml in ~/.config/.    
-place plugins folder in /usr/share/zsh/. 
+Make sure that ZSH is installed and then run `init.sh` inside this repository folder 
