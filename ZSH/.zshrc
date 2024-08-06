@@ -10,11 +10,18 @@ setopt appendhistory                                            # Immediately ap
 setopt histignorealldups                                        # If a new command is a duplicate, remove the older one
 setopt autocd                                                   # if only directory path is entered, cd there.
 
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
+zstyle ':completion:*' rehash true                              # automatically find new executables in path 
+# Speed up completions
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
 HISTFILE=~/.zhistory
 HISTSIZE=1000
 SAVEHIST=500
-#export VISUAL=/usr/bin/nano
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
+
 
 ## Keybindings section
 bindkey -e
@@ -61,15 +68,15 @@ export LESS=-r
 
 # bind UP and DOWN arrow keys to history substring search
 zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up			
-bindkey '^[[B' history-substring-search-down
+#bindkey "$terminfo[kcuu1]" history-substring-search-up
+#bindkey "$terminfo[kcud1]" history-substring-search-down
+#bindkey '^[[A' history-substring-search-up			
+#bindkey '^[[B' history-substring-search-down
 
 ##### MY CONFIG #####
 
 # Exports {
-export PATH=$PATH:$HOME/.bin/:$HOME/.local/bin:$HOME/Downloads/IDEA/bin:$HOME/Downloads/Pycharm/bin:$HOME/.local/share/coursier/bin:$HOME/Documents/Scripts:$HOME/.cargo/bin
+export PATH=/usr/local/lib/ruby/gems/3.1.0/bin:/usr/local/opt/ruby/bin:$HOME/.bin/:$HOME/.local/bin:/usr/local/bin:$HOME/Documents/Workspace/allpago-tooling/scripts/utils:$HOME/Scripts:$PATH
 export EDITOR=/usr/bin/vim
 # }
 
@@ -82,35 +89,24 @@ export EDITOR=/usr/bin/vim
 # }
 
 # Plugins {
-#
- ## zsh-history-substring-search
- [[ -s $HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh 2>/dev/null
 
- ## zsh-autosuggestions
-
- [[ -s $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh  2> /dev/null
- zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
- zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         # Colored completion (different colors for dirs/files/etc)
- zstyle ':completion:*' rehash true                              # automatically find new executables in path 
- # Speed up completions
- zstyle ':completion:*' accept-exact '*(N)'
- zstyle ':completion:*' use-cache on
- zstyle ':completion:*' cache-path ~/.zsh/cache
-
- ## zsh-syntax-highlighting
- [[ -s $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-
- [[ -s $HOME/.zsh/autojump/bin/autojump.zsh ]] && source $HOME/.zsh/autojump/bin/autojump.zsh 
+  source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 # }
 
-# autoload -U compinit colors zcalc
-# compinit -u
-# colors
+autoload -U compinit colors zcalc
+compinit -u
+colors
 
 #Uses tmux by default
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
-fi
+#if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#  exec tmux -CC 
+#fi
+
+#Fixes tmux colors
+export TERM=xterm-256color
  
 eval "$(starship init zsh)" # Use Starship prompt
 
@@ -120,3 +116,24 @@ TIMEFMT=$'\t%E real\n\t%U user\n\t%S sys'
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# opam configuration
+[[ ! -r /Users/enrique.silva/.opam/opam-init/init.zsh ]] || source /Users/enrique.silva/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Adding idrsa to keychain
+ssh-add --apple-use-keychain ~/.ssh/macos_github_ssh_key
+
+# Environment variables used by card payment's gradle projects
+export JFROG_USER=enrique.silva@ppro.com
+export JFROG_PASSWORD=<GET_IT_FROM_KEEPER>
+export GITHUB_TOKEN=<GET_IT_FROM_KEEPER>
+export SONAR_TOKEN=<GET_IT_FROM_KEEPER>
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/enrique.silva/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+

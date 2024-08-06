@@ -34,10 +34,10 @@ else
   endif
 endif
 
-if &t_Co > 2 || has("gui_running")
-  " Switch on highlighting the last used search pattern.
-  set hlsearch
-endif
+" Switch on highlighting the last used search pattern.
+set hlsearch
+" Incremental search for a pattern before typying the return key
+set incsearch
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -67,14 +67,15 @@ if has('syntax') && has('eval')
   packadd! matchit
 endif
 
-set number "Permite exibir os numeros das linhas
+set number "Permite exibir qual linha estou editando
+set relativenumber "Permite exibir todas as linhas com numero relativos
 
 set foldmethod=indent "Permite omitir partes do texto com base na indentacao
 set foldlevelstart=1 "Abre, por padrão, 1 níveis de dobras
 
-syntax on "Ativa o highlight de sintaxes
 colorscheme gruvbox "Atual tema de cor: Gruvbox
-set background=dark "Versao dark do tema
+
+syntax on "Ativa o highlight de sintaxes
 
 " Tecla leader agora é: ,
 let mapleader=','
@@ -94,21 +95,27 @@ tnoremap <C-N> <C-W>N
 " Search for word under cursor but not moving cursor 
 nmap <silent> <space> *N
 nmap s <space>cgn
+
+vmap s yq/p<CR>
+
 "Permite com que a clipboard do SO seja usada para copiar e colar
 "Para copiar para ela digite ` "+y `
 "Para colar dela digite ` "+p `
-set clipboard=unnamedplus
+"set clipboard=unnamedplus
 
 set shiftwidth=4		" always set indent size as 4 whitespaces
 set tabstop=4
  
 " No undo .un~ files
 set noundofile
+
+" go to previous buffer, deleting actual buffer  
+nmap <silent> gb :bp\|bd #<CR>
+" go to previous (ultimo) buffer
+nmap <silent> gu :bp<CR>
+" go to next (prox) buffer
+nmap <silent> gp :bn<CR>
  
-" -------------------AIRLINE-----------------------------
-"   
-" Set the airline theme
-let g:airline_theme='wombat'
 "
 " -------------------NERDTree-----------------------------
 "
@@ -117,30 +124,3 @@ autocmd VimEnter * NERDTree
 " Exit Vim if NERDTree is the only window left.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
 	\ quit | endif
-"  
-" -------------------Coc-nvim-----------------------------
-"
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" go to previous buffer, deleting actual buffer  
-nmap <silent> gb :bp\|bd #<CR>
-" go to previous (ultimo) buffer
-nmap <silent> gu :bp<CR>
-" go to next (prox) buffer
-nmap <silent> gp :bn<CR>
-" switch between header and source files
-" (WILL OVERRIDE VIM'S SELECT MODE)
-nmap <silent> gh :CocCommand clangd.switchSourceHeader<CR>
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-" -------------------Coc-highlights-----------------------------
-"
-" Enable highlighting on cursor hold;
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" -------------------Tabularize-----------------------------
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>

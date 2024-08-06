@@ -1,9 +1,4 @@
-alias idea=idea.sh
-alias pycharm=pycharm.sh
-
-alias findps="ps -aux | grep"
-
-alias img="feh"
+alias findps="ps -ax | grep"
 
 # exa is the new ls 
 alias ls="exa"
@@ -27,3 +22,15 @@ cdl() {
 jl() {
 	j $1 ; cl
 }
+
+############## PPRO ALIASES #############
+
+alias mci="mvn clean install"
+alias mci-skip-tests="mvn clean install -DskipTests=true"
+alias mci-sonar="mvn clean install sonar:sonar"
+alias mci-sonar-skip-tests="mvn clean install -Dmaven.test.skip=true sonar:sonar"
+
+alias kb="kubectl"
+
+alias ruby3=/usr/local/opt/ruby
+
