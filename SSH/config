@@ -1,0 +1,37 @@
+Host *.github.com
+	AddKeysToAgent yes
+	IdentityFile ~/.ssh/macos_github_ssh_key
+
+Host 10.2.*.*
+	User esilva
+	IdentityFile ~/.ssh/id_rsa
+    ProxyCommand ssh -q -W %h:%p 10.19.0.1
+	ForwardAgent yes
+	StrictHostKeyChecking no
+Host 10.3.*.*
+	User esilva
+	IdentityFile ~/.ssh/id_rsa
+    ProxyCommand ssh -q -W %h:%p 10.29.0.1
+	ForwardAgent yes
+	StrictHostKeyChecking no
+Host 172.31.*.*
+	User esilva
+	IdentityFile ~/.ssh/id_rsa
+    ProxyCommand ssh -q -W %h:%p 192.168.10.1
+	ForwardAgent yes
+	StrictHostKeyChecking no
+Host 10.1.*.*
+	User esilva
+	IdentityFile ~/.ssh/id_rsa
+	ForwardAgent yes
+	StrictHostKeyChecking no
+Host 10.4.*.*
+	User esilva
+	IdentityFile ~/.ssh/id_rsa
+    ProxyCommand ssh -q -W %h:%p 192.168.10.1
+	ForwardAgent yes
+	StrictHostKeyChecking no
+Host mfg.worldpay.com
+    User MFG_MTCPPPRG
+    PubkeyAcceptedAlgorithms +ssh-rsa
+    HostkeyAlgorithms +ssh-rsa
