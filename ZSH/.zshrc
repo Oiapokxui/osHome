@@ -90,10 +90,10 @@ export EDITOR=/usr/bin/vim
 
 # Plugins {
 
-  source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+  source /opt/homebrew/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 # }
 
 autoload -U compinit colors zcalc
